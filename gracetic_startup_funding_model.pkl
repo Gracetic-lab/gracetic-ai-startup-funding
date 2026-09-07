@@ -1,0 +1,17 @@
+��      �sklearn.pipeline��Pipeline���)��}�(�steps�]�(�preprocessor��#sklearn.compose._column_transformer��ColumnTransformer���)��}�(�transformers�]�(�num��passthrough�]�(�Valuation_USD_Mi[...]
+categories��auto��sparse_output���dtype��numpy��float64����handle_unknown��ignore��drop�N�min_frequency�N�max_categories�N�feature_name_combiner��concat��_sklearn_version��1.6.1�ub]�(�D[...]
+allow_mmap���numpy_array_alignment_bytes�Kub���       �numpy._core.multiarray��_reconstruct����numpy��ndarray���K ��Cb���R�(KK��h�dtype����O8�����R�(K�|�NNNJ����J����K?t�b�]�(�Domain��[...]
+_remainder�h1h%h�_RemainderColsList���)��}�(�data�]��future_dtype��str��warning_was_emitted���warning_enabled��ub���sparse_output_���transformers_�]�(h�+sklearn.preprocessing._function_trans[...]
+one-to-one��kw_args�N�inv_kw_args�N�_sklearn_output_config�}��	transform��default�shNKh8h;)��}�(h>h@hAK��hChDhhIhL�hMKub���       �numpy._core.multiarray��_reconstruct����numpy��ndarray��[...]
+��hChDhhIhL�hMKub��      �numpy._core.multiarray��_reconstruct����numpy��ndarray���K ��Cb���R�(KK
+��h�dtype����O8�����R�(K�|�NNNJ����J����K?t�b�]�(�Autonomous Vehicles��ClimateTech��Cybersecurity��EdTech��FinTech��Generative AI��
+HealthTech��Robotics��	SpaceTech��Web3/Crypto�et�b.�#       h;)��}�(h>h@hAK��hChDhhIhL�hMKub���      �numpy._core.multiarray��_reconstruct����numpy��ndarray���K ��Cb���R�(KK��h�dtype��[...]
+��hChDhhIhL�hMKub���       �numpy._core.multiarray��_reconstruct����numpy��ndarray���K ��Cb���R�(KK
+��h�dtype����O8�����R�(K�|�NNNJ����J����K?t�b�]�(�Canada��China��France��Germany��India��Israel��Japan��	Singapore��UK��USA�et�b.�k      e�_drop_idx_after_grouping�N�	drop_idx_�N�_n_f[...]
+KK
+eh*h+ubh,��e�output_indices_�}�(h�builtins��slice���K KN��R�hh�KK4N��R�h1h�K K N��R�uh*h+ub���	regressor��sklearn.linear_model._base��LinearRegression���)��}�(�fit_intercept���copy_X��h3N�[...]
+��?���%.ۿ��$4/ �As��n@7�r��@�1?
+��2��5��?�=}v�]|���&��H�?��D7k�?�k���ʿXq�����?âoX���?@�I���V�3@Qk"
+n*�?��2W�(�2�%�^2��T���x�?ol�r`T���_�#���??�%��? ����¿��	y�p����z�����c������ڿ} ���������I�M��?�_:�wѿ�����?f���/�?v��#s���*��
+�� ����¿o����?0C�?�r       �
+intercept_��numpy._core.multiarray��scalar���h�C ʍ�C�?���R�h*h+ub��e�transform_input�N�memory�Nh5�h*h+ub.
