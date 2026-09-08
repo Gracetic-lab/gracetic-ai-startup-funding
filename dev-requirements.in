@@ -1,7 +1,0 @@
-# Development requirements that include runtime deps. Generate a locked dev-requirements.txt
-# with: pip-compile --generate-hashes --output-file=dev-requirements.txt dev-requirements.in
-
--r requirements.in
-pytest
-black
-pre-commit
