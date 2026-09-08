@@ -1,0 +1,8 @@
+# Top-level dependency input for pip-tools (human-maintained)
+# Run `pip-compile --generate-hashes --output-file=requirements.txt requirements.in`
+# to produce a fully pinned requirements.txt with hashes for reproducible installs.
+
+streamlit
+pandas
+scikit-learn==1.6.1
+# Add joblib only if your code imports it directly. scikit-learn 1.6.1 requires joblib>=1.4.0
