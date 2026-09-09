@@ -1,9 +1,4 @@
-# Recommended constrained runtime requirements. These are conservative constraints to
-# avoid accidental breaking upgrades while allowing minor/patch updates. For strict
-# reproducibility, generate and commit a fully pinned requirements.txt with hashes
-# using `pip-compile --generate-hashes requirements.in`.
-
-streamlit>=1.20.0,<2.0.0
-pandas>=1.5.0,<3.0.0
+streamlit
+pandas
 scikit-learn==1.6.1
-joblib>=1.4.0,<2.0.0
+joblib
