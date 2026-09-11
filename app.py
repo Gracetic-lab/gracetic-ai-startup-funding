@@ -2,100 +2,167 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-# ==========================================
-# GRACETIC AI
-# Intelligent Systems for the Future
-# ==========================================
-
-model = joblib.load("gracetic_startup_funding_model.pkl")
-
 st.set_page_config(
     page_title="Gracetic AI",
     page_icon="🤖",
     layout="centered"
 )
 
+# Load model
+@st.cache_resource
+def load_model():
+    return joblib.load("gracetic_startup_funding_model.pkl")
+
+try:
+    model = load_model()
+except FileNotFoundError:
+    st.error("Model file not found.")
+    st.stop()
+
+# Header
 st.title("🤖 Gracetic AI")
 st.subheader("Intelligent Systems for the Future")
-st.write("🌍 AI-powered global startup funding prediction system.")
+st.write("🌍 AI-powered global startup funding prediction system")
+st.divider()
+
+# Startup information
+st.header("📋 Startup Information")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    valuation = st.number_input(
+        "Valuation (USD Millions)",
+        min_value=0.0,
+        value=10.0,
+        step=0.1
+    )
+
+    age = st.number_input(
+        "Startup Age (Years)",
+        min_value=0.0,
+        value=5.0,
+        step=0.5
+    )
+
+with col2:
+    burn_rate = st.number_input(
+        "Monthly Burn Rate (USD Millions)",
+        min_value=0.0,
+        value=1.0,
+        step=0.1
+    )
+
+# Location and industry
+st.header("🌍 Location & Industry")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    city = st.text_input(
+        "City",
+        placeholder="e.g. Kampala, Tokyo, Berlin"
+    )
+
+    country = st.text_input(
+        "Country",
+        placeholder="e.g. Uganda, Japan, Germany"
+    )
+
+with col2:
+    domain = st.text_input(
+        "Industry",
+        placeholder="e.g. FinTech, AI, AgriTech"
+    )
 
 st.divider()
 
-st.header("Startup Information")
+# Prediction
+if st.button(
+    "🚀 Predict Funding",
+    use_container_width=True,
+    type="primary"
+):
 
-valuation = st.number_input(
-    "Startup Valuation (USD Millions)",
-    min_value=0.0,
-    value=10.0,
-    step=0.1
-)
+    if not city or not country or not domain:
+        st.warning("Please enter the city, country, and industry.")
 
-age = st.number_input(
-    "Startup Age (Years)",
-    min_value=0.0,
-    value=5.0,
-    step=1.0
-)
-
-burn_rate = st.number_input(
-    "Monthly Burn Rate (USD Millions)",
-    min_value=0.0,
-    value=1.0,
-    step=0.1
-)
-
-city = st.text_input(
-    "Startup City",
-    placeholder="e.g. Kampala, Tokyo, Berlin, São Paulo"
-)
-
-domain = st.text_input(
-    "Startup Domain",
-    placeholder="e.g. FinTech, AgriTech, AI, Biotech"
-)
-
-country = st.text_input(
-    "Country",
-    placeholder="e.g. Uganda, Japan, Germany, Brazil"
-)
-
-st.divider()
-
-if st.button("🚀 Predict Funding", use_container_width=True):
-
-    if not city or not domain or not country:
-        st.warning("Please enter the city, domain, and country.")
     else:
-        user_data = pd.DataFrame({
+        data = pd.DataFrame({
             "Valuation_USD_Millions": [valuation],
             "Startup_Age": [age],
             "Monthly_Burn_Rate_Millions": [burn_rate],
             "City": [city],
-            "Domain": [domain],
-            "Country": [country]
+            "Country": [country],
+            "Domain": [domain]
         })
 
         try:
-            prediction = model.predict(user_data)
-            predicted_funding = prediction[0]
+            prediction = model.predict(data)[0]
 
             st.success("✅ Prediction completed!")
 
             st.metric(
-                label="Predicted Total Funding",
-                value=f"${predicted_funding:,.2f} Million"
+                "💰 Predicted Total Funding",
+                f"${prediction:,.2f}M"
             )
 
-            st.info(
-                f"**Startup Profile:** {domain} startup in {city}, {country} | "
-                f"Valuation: ${valuation}M | Age: {age} years | Burn rate: ${burn_rate}M/month"
-            )
+            with st.expander("📊 Startup Profile"):
+                st.write(f"""
+                **Location:** {city}, {country}
+
+                **Industry:** {domain}
+
+                **Valuation:** ${valuation}M
+
+                **Age:** {age} years
+
+                **Burn Rate:** ${burn_rate}M/month
+
+                **Predicted Funding:** ${prediction:,.2f}M
+                """)
+
+            with st.expander("💡 Prediction Insights"):
+                runway = (
+                    valuation / burn_rate
+                    if burn_rate > 0
+                    else float("inf")
+                )
+
+                ratio = (
+                    prediction / valuation
+                    if valuation > 0
+                    else 0
+                )
+
+                st.write(f"""
+                **Runway:** {runway:.1f} months
+
+                **Funding / Valuation:** {ratio:.2f}x
+                """)
 
         except Exception as e:
-            st.error(f"Prediction error: {str(e)}")
+            st.error(f"Prediction error: {e}")
 
 st.divider()
 
 st.caption(
-    "Gracetic AI © 2026 — Intelligent Systems for the Future"
+    "Gracetic AI © 2026 — Intelligent Systems for Emerging Markets"
 )
+
+with st.expander("ℹ️ About This Model"):
+    st.write("""
+    **Gracetic AI Startup Funding Predictor**
+
+    Predicts startup funding using:
+
+    - Valuation
+    - Startup age
+    - Monthly burn rate
+    - City
+    - Country
+    - Industry
+
+    **Disclaimer:** This model is for prediction purposes only
+    and is not investment advice.
+    """)
